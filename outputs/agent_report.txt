@@ -1,0 +1,190 @@
+**FACEBOOK SOCIAL NETWORK ANALYSIS**  
+**MULTI‑AGENT AI REPORT**  
+
+---
+
+### 1. Introduction  
+
+Online social platforms generate massive interaction graphs that can be examined with the tools of Social Network Analysis (SNA).  This report presents a concise SNA of a sampled Facebook network that contains **4 039** users.  The analysis focuses on basic network statistics, identification of influential and bridging users, community structure, and a short diffusion experiment using the Independent Cascade (IC) model.  All results are derived from the supplied data; no additional statistics have been invented.  
+
+---
+
+### 2. Network Analysis  
+
+| Statistic | Value |
+|-----------|-------|
+| Total users analysed | **4 039** |
+| Total communities detected (Louvain) | **16** |
+| Average degree centrality | **0.010820** |
+| Average betweenness centrality* | **0.000668** |
+| Average closeness centrality | **0.276168** |
+
+\*Betweenness was estimated with a sampled‑node approximation (k = 500).  
+
+**Degree Centrality** measures the proportion of possible ties a node actually has. For an undirected graph  
+
+\[
+C_D(v)=\frac{deg(v)}{N-1}
+\]
+
+where *deg(v)* is the number of neighbours of *v* and *N* is the number of nodes.  
+
+**Betweenness Centrality** captures how often a node lies on shortest paths between other pairs of nodes. For node *v*  
+
+\[
+C_B(v)=\sum_{s\neq v\neq t}\frac{\sigma_{st}(v)}{\sigma_{st}}
+\]
+
+where \(\sigma_{st}\) is the total number of shortest paths from *s* to *t*, and \(\sigma_{st}(v)\) those that pass through *v*. The reported values are approximations based on 500 sampled source nodes.  
+
+**Closeness Centrality** reflects how close a node is, on average, to all other nodes in the network; higher values indicate shorter average distances.  
+
+---
+
+### 3. Influencer Detection  
+
+Influence was quantified by an **Enhanced Influence Score** that combines degree and betweenness (the exact weighting is internal to the analysis pipeline). The top ten influencers are shown in Table 1.
+
+**Table 1 – Top 10 Influencers**  
+
+| Rank | User ID | Enhanced Influence Score | Community | Degree Centrality | Betweenness Centrality |
+|------|--------|--------------------------|-----------|-------------------|------------------------|
+| 1 | 107 | 0.782637 | 1 | 0.258791 | 0.489707 |
+| 2 | 1912 | 0.662235 | 10 | 0.186974 | 0.216324 |
+| 3 | 1684 | 0.611972 | 9 | 0.196137 | 0.344536 |
+| 4 | 3437 | 0.494076 | 14 | 0.135463 | 0.222233 |
+| 5 | 0 | 0.407185 | 0 | 0.085934 | 0.161446 |
+| 6 | 2347 | 0.310502 | 11 | 0.072065 | 0.002758 |
+| 7 | 2266 | 0.304805 | 11 | 0.057949 | 0.001515 |
+| 8 | 2543 | 0.302590 | 11 | 0.072808 | 0.006708 |
+| 9 | 2233 | 0.286962 | 11 | 0.054978 | 0.000056 |
+|10 | 2142 | 0.284873 | 11 | 0.054730 | 0.000130 |
+
+These users combine a relatively high number of direct connections (degree) with a strong ability to sit on many shortest paths (betweenness), making them structurally prominent.
+
+---
+
+### 4. Community Detection  
+
+A modularity‑optimisation algorithm (Louvain) identified **16** distinct communities. Table 2 lists the ten largest ones by size.
+
+**Table 2 – Top 10 Communities by Size**  
+
+| Community | Size (users) |
+|-----------|--------------|
+| 14 | 548 |
+| 9  | 535 |
+| 1  | 435 |
+| 3  | 431 |
+| 10 | 423 |
+| 0  | 350 |
+| 4  | 324 |
+| 11 | 237 |
+| 8  | 226 |
+| 6  | 206 |
+
+For each community, the most influential member (by Enhanced Influence Score) is presented in Table 3.
+
+**Table 3 – Community Leaders**  
+
+| Community | Leader (User ID) | Influence Score |
+|-----------|------------------|-----------------|
+| 1 | 107 | 0.78264 |
+| 10 | 1912 | 0.66223 |
+| 9 | 1684 | 0.61197 |
+| 14 | 3437 | 0.49408 |
+| 0 | 0 | 0.40719 |
+| 11 | 2347 | 0.31050 |
+| 3 | 348 | 0.23239 |
+| 6 | 698 | 0.14566 |
+| 4 | 917 | 0.12499 |
+| 2 | 1687 | 0.11523 |
+| 15 | 3980 | 0.10666 |
+| 8 | 2839 | 0.10476 |
+| 12 | 1972 | 0.07432 |
+| 7 | 3318 | 0.06617 |
+| 5 | 583 | 0.06109 |
+| 13 | 2622 | 0.05695 |
+
+---
+
+### 5. Bridge User Analysis  
+
+**Bridge users** are nodes that maintain edges to members of different communities. They are crucial because they enable information, ideas, or behaviours to travel across otherwise densely clustered groups. In a modular network, the removal of bridges can dramatically reduce inter‑community diffusion.
+
+Table 4 summarises the ten most important bridge users, ordered by the number of **cross‑community edges** (edges that connect to a different community).
+
+**Table 4 – Important Bridge Users**  
+
+| Rank | User ID | Cross‑community edges | Connected communities | Betweenness | Community |
+|------|--------|-----------------------|-----------------------|-------------|-----------|
+| 1 | 107 | 611 | 7 | 0.489707 | 1 |
+| 2 | 1912 | 333 | 5 | 0.216324 | 10 |
+| 3 | 1684 | 259 | 5 | 0.344536 | 9 |
+| 4 | 2543 | 136 | 1 | 0.006708 | 11 |
+| 5 | 2347 | 112 | 1 | 0.002758 | 11 |
+| 6 | 1941 | 107 | 1 | 0.001424 | 10 |
+| 7 | 483  | 76  | 2 | 0.010952 | 3 |
+| 8 | 136  | 53  | 3 | 0.028431 | 10 |
+| 9 | 526  | 50  | 2 | 0.001701 | 3 |
+|10 | 1718 | 46  | 3 | 0.036530 | 10 |
+
+These users are potential conduits for viral content or for targeted interventions that aim to reach multiple communities.
+
+---
+
+### 6. Community Leader Analysis  
+
+Community leaders are the most structurally influential members within each detected community (Table 3). Their high degree and centrality scores suggest they can effectively broadcast information to a large fraction of their own community. Engaging these leaders is a common strategy for community‑based marketing or awareness campaigns because their influence is bounded primarily within the community, reducing the risk of unwanted spill‑over.
+
+---
+
+### 7. Influence Diffusion Simulation  
+
+#### 7.1 Model description  
+
+The **Independent Cascade (IC) model** is a classic stochastic diffusion framework. The process starts from a **seed** node; each newly activated node gets a single chance to activate each of its inactive neighbours with a fixed **spread probability** *p*. The simulation proceeds in discrete rounds until no further activations occur or a pre‑set round limit is reached.
+
+#### 7.2 Configuration used  
+
+| Parameter | Value |
+|-----------|-------|
+| Seed user (anonymous ID) | **107** |
+| Spread probability *p* | **20 %** (0.20) |
+| Maximum rounds | **5** |
+| Random seed for reproducibility | **42** |
+| Network size | **4 039** users |
+
+#### 7.3 Results (probabilistic scenario)  
+
+The simulation produced the following round‑by‑round counts (the numbers are expected values under the random seed, not guarantees of real Facebook sharing):
+
+| Round | Newly influenced | Cumulative influenced |
+|-------|------------------|-----------------------|
+| 0 | 1 | 1 |
+| 1 | 193 | 194 |
+| 2 | 870 | 1 064 |
+| 3 | 1 055 | 2 119 |
+| 4 | 675 | 2 794 |
+| 5 | 258 | **3 052** |
+
+- **Total influenced users:** 3 052  
+- **Network reach:** 75.56 % of the sampled graph  
+
+These figures illustrate a plausible diffusion trajectory under the chosen probability and round limit. They should be interpreted as **probabilistic scenarios** generated by the IC model, not as predictions of actual Facebook behaviour.
+
+---
+
+### 8. AI‑Based Recommendations  
+
+1. **Study Highly Connected Users** – Users with the largest degree centralities (e.g., 107, 1684, 1912) act as hubs. Analysing their activity patterns can reveal common topics or behaviours that attract many contacts.  
+
+2. **Examine Bridge Positions** – Users with high betweenness and many cross‑community edges (especially 107, 1912, 1684) are strategic for spreading information across community boundaries. Targeted messaging to these bridges can accelerate inter‑community diffusion.  
+
+3. **Leverage Community Leaders** – Each community’s leader (see Table 3) can serve as a local champion. Engaging them may improve acceptance of messages within their group while limiting spill‑over to unrelated groups.  
+
+4. **Validate Structural Influence** – The Enhanced Influence Score reflects only network topology. Before drawing conclusions about real‑world popularity, compare these scores with behavioural data (likes, comments, shares) to confirm that structural prominence translates to actual engagement.  
+
+5. **Analyse Cross‑Community Edges** – Quantify how many edges exist between each pair of communities. This information helps identify which community pairs are most tightly linked and where bridging interventions could be most effective.  
+
+6. **Use Diffusion Simulations as “What

@@ -1,0 +1,41 @@
+{
+  "starting_user": 107,
+  "spread_probability": 0.2,
+  "max_rounds": 5,
+  "random_seed": 42,
+  "total_users": 4039,
+  "total_influenced": 3052,
+  "reach_percentage": 75.5632582322357,
+  "round_results": [
+    {
+      "Round": 0,
+      "Newly Influenced": 1,
+      "Total Influenced": 1
+    },
+    {
+      "Round": 1,
+      "Newly Influenced": 193,
+      "Total Influenced": 194
+    },
+    {
+      "Round": 2,
+      "Newly Influenced": 870,
+      "Total Influenced": 1064
+    },
+    {
+      "Round": 3,
+      "Newly Influenced": 1055,
+      "Total Influenced": 2119
+    },
+    {
+      "Round": 4,
+      "Newly Influenced": 675,
+      "Total Influenced": 2794
+    },
+    {
+      "Round": 5,
+      "Newly Influenced": 258,
+      "Total Influenced": 3052
+    }
+  ]
+}
